@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Game</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+<main class="text-center">
+<h1 class="text-4xl font-bold text-green-500 mb-4">Snake Game</h1>
+<div id="game" class="border-4 border-green-500 rounded-lg"></div>
+<div class="text-white mt-4">Score: <span id="score">0</span></div>
+</main>
+<script>
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'game',
+    backgroundColor: '#1a1a1a',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+const game = new Phaser.Game(config);
+
+let snake;
+let food;
+let cursors;
+let direction = 'right';
+let snakeBody = [];
+let gameOver = false;
+let score = 0;
+let scoreText;
+let gridSize = 20;
+let speed = 150;
+let lastMoveTime = 0;
+
+function preload() {
+    this.load.setBaseURL('https://labs.phaser.io');
+    this.load.image('food', 'assets/particles/red.png');
+    this.load.image('body', 'assets/particles/blue.png');
+}
+
+function create() {
+    cursors = this.input.keyboard.createCursorKeys();
+    
+    snake = this.add.rectangle(400, 300, gridSize, gridSize, 0x00ff00);
+    food = this.add.rectangle(200, 200, gridSize, gridSize, 0xff0000);
+    
+    snakeBody = [];
+    score = 0;
+    document.getElementById('score').textContent = score;
+    
+    this.input.keyboard.on('keydown', function(event) {
+        switch(event.keyCode) {
+            case 37: if(direction !== 'right') direction = 'left'; break;
+            case 38: if(direction !== 'down') direction = 'up'; break;
+            case 39: if(direction !== 'left') direction = 'right'; break;
+            case 40: if(direction !== 'up') direction = 'down'; break;
+        }
+    });
+}
+
+function update(time) {
+    if (gameOver) return;
+    
+    if (time >= lastMoveTime + speed) {
+        let x = snake.x;
+        let y = snake.y;
+        
+        switch(direction) {
+            case 'left': x -= gridSize; break;
+            case 'right': x += gridSize; break;
+            case 'up': y -= gridSize; break;
+            case 'down': y += gridSize; break;
+        }
+        
+        if (x < 0 || x >= 800 || y < 0 || y >= 600) {
+            gameOver = true;
+            this.add.text(400, 300, 'Game Over', { fontSize: '64px', fill: '#fff' }).setOrigin(0.5);
+            return;
+        }
+        
+        for (let segment of snakeBody) {
+            if (x === segment.x && y === segment.y) {
+                gameOver = true;
+                this.add.text(400, 300, 'Game Over', { fontSize: '64px', fill: '#fff' }).setOrigin(0.5);
+                return;
+            }
+        }
+        
+        if (Math.abs(x - food.x) < gridSize && Math.abs(y - food.y) < gridSize) {
+            score += 10;
+            document.getElementById('score').textContent = score;
+            food.x = Math.floor(Math.random() * 40) * gridSize;
+            food.y = Math.floor(Math.random() * 30) * gridSize;
+            let newSegment = this.add.rectangle(snake.x, snake.y, gridSize, gridSize, 0x0000ff);
+            snakeBody.push(newSegment);
+            speed = Math.max(50, speed - 2);
+        }
+        
+        for (let i = snakeBody.length - 1; i > 0; i--) {
+            snakeBody[i].x = snakeBody[i-1].x;
+            snakeBody[i].y = snakeBody[i-1].y;
+        }
+        
+        if (snakeBody.length > 0) {
+            snakeBody[0].x = snake.x;
+            snakeBody[0].y = snake.y;
+        }
+        
+        snake.x = x;
+        snake.y = y;
+        
+        lastMoveTime = time;
+    }
+}
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+```
+
+The correct ending should be:
+```html
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>
